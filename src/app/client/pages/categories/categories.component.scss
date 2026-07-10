@@ -1,0 +1,102 @@
+@import '../../../../styles/variables';
+
+.categories-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px;
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 48px;
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 18px;
+            color: $text-secondary;
+        }
+    }
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 32px;
+
+        .category-card {
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform $transition-normal, box-shadow $transition-normal;
+
+            &:hover {
+                transform: translateY(-8px);
+                box-shadow: $shadow-lg;
+
+                .overlay {
+                    opacity: 1;
+                }
+
+                .category-image img {
+                    transform: scale(1.1);
+                }
+            }
+
+            .category-image {
+                position: relative;
+                height: 250px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform $transition-slow;
+                }
+
+                .overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    opacity: 0;
+                    transition: opacity $transition-normal;
+
+                    button {
+                        mat-icon {
+                            margin-left: 8px;
+                        }
+                    }
+                }
+            }
+
+            mat-card-content {
+                padding: 24px;
+
+                h2 {
+                    font-size: 24px;
+                    font-weight: 600;
+                    margin-bottom: 8px;
+                }
+
+                p {
+                    color: $text-secondary;
+                    margin-bottom: 12px;
+                }
+
+                .product-count {
+                    color: $primary-color;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

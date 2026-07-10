@@ -1,0 +1,92 @@
+<div class="home-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Fresh Groceries Delivered to Your Door</h1>
+            <p class="hero-subtitle">Quality products at unbeatable prices. Shop now and get free delivery on orders
+                over ₹500!</p>
+            <div class="hero-actions">
+                <button mat-raised-button color="primary" class="hero-btn" routerLink="/products">
+                    <mat-icon>shopping_bag</mat-icon>
+                    Shop Now
+                </button>
+                <button mat-stroked-button class="hero-btn-outline" routerLink="/categories">
+                    Browse Categories
+                </button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <mat-icon class="hero-icon">shopping_basket</mat-icon>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="section-header">
+            <h2>Shop by Category</h2>
+            <a routerLink="/categories" class="view-all-link">View All <mat-icon>arrow_forward</mat-icon></a>
+        </div>
+
+        <div *ngIf="loading" class="grid grid-3">
+            <app-loading-skeleton type="product-card" [count]="6"></app-loading-skeleton>
+        </div>
+
+        <div *ngIf="!loading && categories.length > 0" class="categories-grid">
+            <mat-card *ngFor="let category of categories" class="category-card"
+                (click)="navigateToCategory(category.id)">
+                <div class="category-image">
+                    <img [src]="category.image" [alt]="category.name" />
+                </div>
+                <mat-card-content>
+                    <h3>{{ category.name }}</h3>
+                    <p>{{ category.productCount || 0 }} Products</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <app-empty-state *ngIf="!loading && categories.length === 0" icon="category" title="No Categories Available"
+            message="Categories will be displayed here once they are added.">
+        </app-empty-state>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products-section">
+        <div class="section-header">
+            <h2>Featured Products</h2>
+            <a routerLink="/products" class="view-all-link">View All <mat-icon>arrow_forward</mat-icon></a>
+        </div>
+
+        <div *ngIf="loadingProducts" class="grid grid-4">
+            <app-loading-skeleton type="product-card" [count]="8"></app-loading-skeleton>
+        </div>
+
+        <div *ngIf="!loadingProducts && featuredProducts.length > 0" class="products-grid">
+            <app-product-card *ngFor="let product of featuredProducts" [product]="product"
+                (addToCart)="onAddToCart($event)">
+            </app-product-card>
+        </div>
+
+        <app-empty-state *ngIf="!loadingProducts && featuredProducts.length === 0" icon="inventory_2"
+            title="No Products Available" message="Featured products will be displayed here."
+            actionText="Browse All Products" actionRoute="/products">
+        </app-empty-state>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Download Our Mobile App</h2>
+            <p>Get exclusive deals and faster checkout on our mobile app!</p>
+            <div class="app-buttons">
+                <button mat-raised-button class="app-btn">
+                    <mat-icon>phone_android</mat-icon>
+                    Google Play
+                </button>
+                <button mat-raised-button class="app-btn">
+                    <mat-icon>apple</mat-icon>
+                    App Store
+                </button>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,84 @@
+<div class="products-page">
+    <div class="page-header">
+        <h1>Our Products</h1>
+        <p>Browse our wide selection of fresh groceries</p>
+    </div>
+
+    <div class="products-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <mat-card>
+                <h3>Filters</h3>
+
+                <!-- Category Filter -->
+                <div class="filter-group">
+                    <h4>Category</h4>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Category</mat-label>
+                        <mat-select [(value)]="filter.categoryId" (selectionChange)="onCategoryChange($event.value)">
+                            <mat-option value="">All Categories</mat-option>
+                            <mat-option *ngFor="let category of categories" [value]="category.id">
+                                {{ category.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- Sort Filter -->
+                <div class="filter-group">
+                    <h4>Sort By</h4>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Sort</mat-label>
+                        <mat-select [(value)]="filter.sortBy" (selectionChange)="onSortChange($event.value)">
+                            <mat-option value="name">Name</mat-option>
+                            <mat-option value="price">Price</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- Price Range -->
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <div class="price-inputs">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Min</mat-label>
+                            <input matInput type="number" [(ngModel)]="priceRange.min" (change)="onPriceRangeChange()">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Max</mat-label>
+                            <input matInput type="number" [(ngModel)]="priceRange.max" (change)="onPriceRangeChange()">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <button mat-stroked-button color="warn" (click)="clearFilters()" class="clear-btn">
+                    Clear Filters
+                </button>
+            </mat-card>
+        </aside>
+
+        <!-- Products Grid -->
+        <div class="products-content">
+            <div *ngIf="loading" class="grid grid-3">
+                <app-loading-skeleton type="product-card" [count]="9"></app-loading-skeleton>
+            </div>
+
+            <div *ngIf="!loading && products.length > 0" class="products-grid">
+                <app-product-card *ngFor="let product of products" [product]="product"
+                    (addToCart)="onAddToCart($event)">
+                </app-product-card>
+            </div>
+
+            <app-empty-state *ngIf="!loading && products.length === 0" icon="search_off" title="No Products Found"
+                message="Try adjusting your filters or search criteria." actionText="Clear Filters"
+                (click)="clearFilters()">
+            </app-empty-state>
+
+            <!-- Pagination -->
+            <mat-paginator *ngIf="!loading && products.length > 0" [length]="totalProducts" [pageSize]="pageSize"
+                [pageIndex]="currentPage" [pageSizeOptions]="[12, 24, 48]" (page)="onPageChange($event)"
+                showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

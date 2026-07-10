@@ -1,0 +1,91 @@
+@import '../../../../styles/variables';
+
+.product-management {
+    padding: 32px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        button mat-icon {
+            margin-right: 8px;
+        }
+    }
+
+    .product-form-card {
+        padding: 32px;
+        margin-bottom: 24px;
+
+        h2 {
+            margin-bottom: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+
+            @media (max-width: $breakpoint-sm) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+
+            button mat-icon {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .table-card {
+        padding: 24px;
+
+        .products-table {
+            width: 100%;
+
+            .product-thumb {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: $radius-md;
+            }
+
+            .low-stock {
+                color: $error-color;
+                font-weight: 600;
+            }
+
+            th {
+                font-weight: 600;
+                background: $bg-tertiary;
+            }
+
+            td,
+            th {
+                padding: 16px;
+            }
+
+            tr:hover {
+                background: $bg-secondary;
+            }
+        }
+    }
+}

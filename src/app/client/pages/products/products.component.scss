@@ -1,0 +1,93 @@
+@import '../../../../styles/variables';
+
+.products-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px;
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 48px;
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: $text-primary;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 18px;
+            color: $text-secondary;
+        }
+    }
+
+    .products-container {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 32px;
+
+        .filters-sidebar {
+            mat-card {
+                position: sticky;
+                top: 100px;
+                padding: 24px;
+
+                h3 {
+                    font-size: 20px;
+                    font-weight: 600;
+                    margin-bottom: 24px;
+                    color: $text-primary;
+                }
+
+                .filter-group {
+                    margin-bottom: 24px;
+
+                    h4 {
+                        font-size: 16px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        color: $text-primary;
+                    }
+
+                    mat-form-field {
+                        width: 100%;
+                    }
+
+                    .price-inputs {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 8px;
+                    }
+                }
+
+                .clear-btn {
+                    width: 100%;
+                }
+            }
+        }
+
+        .products-content {
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 24px;
+                margin-bottom: 32px;
+            }
+
+            mat-paginator {
+                background: transparent;
+            }
+        }
+    }
+
+    @media (max-width: $breakpoint-md) {
+        .products-container {
+            grid-template-columns: 1fr;
+
+            .filters-sidebar mat-card {
+                position: static;
+            }
+        }
+    }
+}

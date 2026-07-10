@@ -1,0 +1,32 @@
+<div class="orders-page">
+    <div class="page-header">
+        <h1>My Orders</h1>
+        <p>Track the status of your deliveries</p>
+    </div>
+
+    <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && orders.length === 0" class="empty">
+        <p>No orders found. Place an order to see it here.</p>
+    </div>
+
+    <div *ngIf="!loading && orders.length > 0" class="orders-list">
+        <mat-card *ngFor="let o of orders" class="order-card">
+            <div class="order-header">
+                <span><strong>Order ID:</strong> {{ o._id || o.id }}</span>
+                <span><strong>Date:</strong> {{ o.createdAt | date:'short' }}</span>
+            </div>
+            <div class="order-details">
+                <span><strong>Total:</strong> {{ o.total | currency:'INR':'symbol':'1.2-2' }}</span>
+                <span><strong>Status:</strong> {{ o.status | titlecase }}</span>                <span *ngIf="o.paymentMethod"><strong>Payment:</strong> {{ getPaymentLabel(o.paymentMethod) }}</span>            </div>
+            <div class="order-items" *ngIf="o.items && o.items.length">
+                <div class="order-item" *ngFor="let item of o.items">
+                    <img class="item-image" [src]="item.image || item.product?.image" alt="{{ item.name || item.product?.name }}">
+                    <span class="item-name">{{ item.name || item.product?.name }}</span>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

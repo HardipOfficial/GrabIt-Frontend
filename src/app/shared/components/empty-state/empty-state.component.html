@@ -1,0 +1,8 @@
+<div class="empty-state">
+    <mat-icon class="empty-icon">{{ icon }}</mat-icon>
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <button *ngIf="actionText && actionRoute" mat-raised-button color="primary" [routerLink]="actionRoute">
+        {{ actionText }}
+    </button>
+</div>

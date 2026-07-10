@@ -1,0 +1,247 @@
+@import '../../../../styles/variables';
+
+.admin-dashboard {
+    padding: 32px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    .dashboard-header {
+        margin-bottom: 32px;
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: $text-secondary;
+            font-size: 16px;
+        }
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+
+        .stat-card {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform $transition-normal;
+
+            &:hover {
+                transform: translateY(-4px);
+            }
+
+            mat-icon {
+                margin-bottom: 16px;
+                font-size: 48px;
+                width: 48px;
+                height: 48px;
+            }
+
+            &.customers mat-icon {
+                color: $primary-color;
+            }
+
+            &.products mat-icon {
+                color: $primary-color;
+            }
+
+            &.categories mat-icon {
+                color: $accent-color;
+            }
+
+            &.orders mat-icon {
+                color: $info-color;
+            }
+
+            &.revenue mat-icon {
+                color: $success-color;
+            }
+
+            &.contacts mat-icon {
+                color: $warning-color;
+            }
+
+            .stat-info {
+                h3 {
+                    font-size: 32px;
+                    font-weight: 700;
+                    margin-bottom: 4px;
+                }
+
+                p {
+                    color: $text-secondary;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .overview-section {
+        margin-bottom: 32px;
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .status-grid, .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+
+            .status-card, .inventory-card {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                transition: transform $transition-normal;
+
+                &:hover {
+                    transform: translateY(-2px);
+                }
+
+                .status-info, .inventory-info {
+                    margin-bottom: 12px;
+
+                    h4 {
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin-bottom: 4px;
+                    }
+
+                    p {
+                        color: $text-secondary;
+                        margin: 0;
+                        font-size: 14px;
+                    }
+                }
+
+                mat-icon {
+                    font-size: 32px;
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+
+            .status-card {
+                &.pending mat-icon { color: $warning-color; }
+                &.processing mat-icon { color: $info-color; }
+                &.delivered mat-icon { color: $success-color; }
+                &.cancelled mat-icon { color: $error-color; }
+            }
+
+            .inventory-card {
+                &.in-stock mat-icon { color: $success-color; }
+                &.out-of-stock mat-icon { color: $error-color; }
+                &.low-stock mat-icon { color: $warning-color; }
+            }
+        }
+    }
+
+    .recent-orders {
+        .recent-orders-table {
+            width: 100%;
+
+            .status-badge {
+                padding: 4px 8px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 500;
+                text-transform: capitalize;
+
+                &.pending { background-color: rgba($warning-color, 0.1); color: $warning-color; }
+                &.processing { background-color: rgba($info-color, 0.1); color: $info-color; }
+                &.delivered { background-color: rgba($success-color, 0.1); color: $success-color; }
+                &.cancelled { background-color: rgba($error-color, 0.1); color: $error-color; }
+            }
+        }
+    }
+
+    .top-products {
+        .product-list {
+            .product-item {
+                display: flex;
+                align-items: center;
+                padding: 16px;
+                border-bottom: 1px solid #e0e0e0;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .product-rank {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: $primary-color;
+                    margin-right: 16px;
+                    min-width: 30px;
+                }
+
+                .product-details {
+                    flex: 1;
+
+                    h4 {
+                        margin: 0 0 4px 0;
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+
+                    p {
+                        margin: 0;
+                        color: $text-secondary;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .quick-actions {
+        margin-bottom: 32px;
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+
+            button {
+                mat-icon {
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+
+    .recent-activity {
+        padding: 24px;
+
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .placeholder-text {
+            color: $text-secondary;
+            text-align: center;
+            padding: 40px;
+        }
+    }
+}

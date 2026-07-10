@@ -1,0 +1,25 @@
+<div class="skeleton-container">
+    <ng-container *ngFor="let item of items">
+        <!-- Product Card Skeleton -->
+        <div *ngIf="type === 'product-card'" class="skeleton-product-card">
+            <div class="skeleton skeleton-image"></div>
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-price"></div>
+        </div>
+
+        <!-- List Item Skeleton -->
+        <div *ngIf="type === 'list-item'" class="skeleton-list-item">
+            <div class="skeleton skeleton-circle"></div>
+            <div class="skeleton-content">
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
+        </div>
+
+        <!-- Banner Skeleton -->
+        <div *ngIf="type === 'banner'" class="skeleton-banner">
+            <div class="skeleton skeleton-banner-full"></div>
+        </div>
+    </ng-container>
+</div>

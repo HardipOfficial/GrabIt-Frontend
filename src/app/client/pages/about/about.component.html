@@ -1,0 +1,74 @@
+<div class="about-page">
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1>About FreshMart</h1>
+        <p>Your trusted partner for fresh, quality groceries</p>
+    </section>
+
+    <!-- Story Section -->
+    <section class="about-story">
+        <div class="story-content">
+            <h2>Our Story</h2>
+            <p>
+                Founded in 2020, FreshMart was born out of a simple idea: to make fresh, quality groceries accessible to
+                everyone.
+                We believe that healthy eating starts with fresh ingredients, and we're committed to bringing the best
+                products
+                directly to your doorstep.
+            </p>
+            <p>
+                Today, we serve thousands of happy customers across the city, offering a wide range of fresh produce,
+                pantry staples,
+                and specialty items. Our team works tirelessly to ensure every product meets our high standards of
+                quality and freshness.
+            </p>
+        </div>
+        <div class="story-image">
+            <mat-icon class="large-icon">storefront</mat-icon>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <mat-card class="mission-card">
+            <mat-icon>flag</mat-icon>
+            <h3>Our Mission</h3>
+            <p>
+                To provide fresh, high-quality groceries at affordable prices while ensuring exceptional customer
+                service
+                and sustainable practices.
+            </p>
+        </mat-card>
+
+        <mat-card class="vision-card">
+            <mat-icon>visibility</mat-icon>
+            <h3>Our Vision</h3>
+            <p>
+                To become the most trusted and preferred online grocery platform, revolutionizing the way people shop
+                for their daily needs.
+            </p>
+        </mat-card>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2>Why Choose Us</h2>
+        <div class="features-grid">
+            <mat-card *ngFor="let feature of features" class="feature-card">
+                <mat-icon>{{ feature.icon }}</mat-icon>
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+            </mat-card>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Start Shopping?</h2>
+        <p>Join thousands of satisfied customers and experience the FreshMart difference</p>
+        <button mat-raised-button color="primary" routerLink="/products">
+            <mat-icon>shopping_bag</mat-icon>
+            Start Shopping
+        </button>
+    </section>
+</div>

@@ -1,0 +1,45 @@
+.orders-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.order-card {
+    margin-bottom: 1rem;
+}
+
+.order-header, .order-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap; /* allow additional fields to wrap gracefully */
+}
+
+.item-count {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.order-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.item-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.item-name {
+    font-size: 0.9rem;
+}

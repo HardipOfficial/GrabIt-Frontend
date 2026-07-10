@@ -1,0 +1,68 @@
+<div class="cart-page">
+    <div class="page-header">
+        <h1>Shopping Cart</h1>
+        <p>Review your items before checkout</p>
+    </div>
+
+    <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && cartItems.length > 0" class="cart-container">
+        <div class="cart-items">
+            <mat-card *ngFor="let item of cartItems" class="cart-item">
+                <div class="item-image">
+                    <img [src]="item.product.image" [alt]="item.product.name" />
+                </div>
+                <div class="item-details">
+                    <h3>{{ item.product.name }}</h3>
+                    <p class="item-price">{{ item.product.price | currency:'INR':'symbol':'1.2-2' }} <span *ngIf="item.product.unit">/ {{ item.product.unit }}</span></p>
+                </div>
+                <div class="item-quantity">
+                    <button mat-icon-button (click)="updateQuantity(item.id, item.quantity - 1)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <span>{{ item.quantity }}</span>
+                    <button mat-icon-button (click)="updateQuantity(item.id, item.quantity + 1)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div class="item-subtotal">
+                    <strong>{{ item.subtotal | currency:'INR':'symbol':'1.2-2' }}</strong>
+                </div>
+                <div class="item-actions">
+                    <button mat-icon-button color="warn" (click)="removeItem(item.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-card>
+        </div>
+
+        <mat-card class="cart-summary">
+            <h2>Order Summary</h2>
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <strong>{{ cartTotal | currency:'INR':'symbol':'1.2-2' }}</strong>
+            </div>
+            <div class="summary-row">
+                <span>Delivery:</span>
+                <strong>{{ cartTotal > 500 ? 'FREE' : '₹40' }}</strong>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <strong>{{ (cartTotal > 500 ? cartTotal : cartTotal + 40) | currency:'INR':'symbol':'1.2-2' }}</strong>
+            </div>
+            <button mat-raised-button color="primary" class="checkout-btn" (click)="proceedToCheckout()">
+                <mat-icon>payment</mat-icon>
+                Proceed to Checkout
+            </button>
+            <button mat-stroked-button routerLink="/products" class="continue-shopping-btn">
+                Continue Shopping
+            </button>
+        </mat-card>
+    </div>
+
+    <app-empty-state *ngIf="!loading && cartItems.length === 0" icon="shopping_cart" title="Your Cart is Empty"
+        message="Add some products to your cart to get started!" actionText="Browse Products" actionRoute="/products">
+    </app-empty-state>
+</div>

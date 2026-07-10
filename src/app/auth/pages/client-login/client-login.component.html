@@ -1,0 +1,43 @@
+<div class="client-login-page">
+    <mat-card class="login-card">
+        <div class="login-header">
+            <mat-icon class="client-icon">person</mat-icon>
+            <h1>Login</h1>
+            <p>Enter your credentials to access your account</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="you@example.com" />
+                <mat-icon matPrefix>email</mat-icon>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'"
+                    placeholder="Enter password" />
+                <mat-icon matPrefix>lock</mat-icon>
+                <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 6
+                    characters</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading"
+                class="login-btn">
+                <mat-icon>login</mat-icon>
+                {{ loading ? 'Logging in...' : 'Login' }}
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <a routerLink="/auth/register">Don't have an account? Register</a><br />
+            <a routerLink="/">Back to Home</a>
+        </div>
+    </mat-card>
+</div>

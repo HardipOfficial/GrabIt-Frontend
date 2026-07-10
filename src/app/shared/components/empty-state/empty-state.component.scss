@@ -1,0 +1,36 @@
+@import '../../../../styles/variables';
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    text-align: center;
+
+    .empty-icon {
+        font-size: 120px;
+        width: 120px;
+        height: 120px;
+        color: rgba(0, 0, 0, 0.2);
+        margin-bottom: 24px;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0 0 12px 0;
+    }
+
+    p {
+        font-size: 16px;
+        color: $text-secondary;
+        margin: 0 0 24px 0;
+        max-width: 400px;
+    }
+
+    button {
+        margin-top: 8px;
+    }
+}

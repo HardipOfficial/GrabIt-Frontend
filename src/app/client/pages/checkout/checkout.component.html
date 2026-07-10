@@ -1,0 +1,124 @@
+<div class="checkout-container" *ngIf="!loading">
+    <h2>Checkout</h2>
+
+    <div *ngIf="cartItems.length === 0" class="empty">
+        <p>Your cart is empty. Add some products before checking out.</p>
+    </div>
+
+    <div *ngIf="cartItems.length > 0">
+        <mat-card *ngFor="let item of cartItems" class="item-card">
+            <div class="item-row">
+                <span>{{ item.product.name }}</span>
+                <span>{{ item.quantity }} x {{ item.product.price | currency:'INR':'symbol':'1.2-2' }}</span>
+                <span>{{ item.subtotal | currency:'INR':'symbol':'1.2-2' }}</span>
+            </div>
+        </mat-card>
+
+        <div class="total-row">
+            <strong>Total:</strong> {{ cartTotal | currency:'INR':'symbol':'1.2-2' }}
+        </div>
+
+        <h3>Delivery Address</h3>
+
+        <div *ngIf="profileLoading" class="loading-inline">
+            <mat-spinner diameter="20"></mat-spinner>
+            <span>Checking saved addresses...</span>
+        </div>
+
+        <mat-radio-group 
+            *ngIf="!profileLoading && hasSavedAddress()" 
+            [(ngModel)]="addressOption" 
+            (change)="onAddressOptionChange()"
+            class="address-option-group mb-md">
+            <mat-radio-button value="profile">Use Saved Address</mat-radio-button>
+            <mat-radio-button value="manual">Add Manually</mat-radio-button>
+        </mat-radio-group>
+
+        <!-- Saved Address Display -->
+        <div *ngIf="addressOption === 'profile' && hasSavedAddress()" class="saved-address-card mb-lg">
+            <mat-card>
+                <mat-card-content>
+                    <div class="address-details">
+                        <mat-icon>location_on</mat-icon>
+                        <div>
+                            <p class="mb-xs"><strong>{{ customerName }}</strong></p>
+                            <p class="text-secondary small">{{ street }}</p>
+                            <p class="text-secondary small">{{ city }}, {{ state }} - {{ pinCode }}</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!-- Manual Address Form -->
+        <div class="address-form" *ngIf="addressOption === 'manual' || !hasSavedAddress()">
+            <mat-form-field class="full-width">
+                <mat-label>House Number / Flat No.</mat-label>
+                <input matInput [(ngModel)]="houseNumber" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Street / Area</mat-label>
+                <input matInput [(ngModel)]="street">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>City</mat-label>
+                <input matInput [(ngModel)]="city" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>State</mat-label>
+                <input matInput [(ngModel)]="state">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Pin Code</mat-label>
+                <input matInput [(ngModel)]="pinCode" required>
+            </mat-form-field>
+        </div>
+
+        <h3>Payment Method</h3>
+        <mat-radio-group [(ngModel)]="paymentMethod" class="payment-method-group">
+            <mat-radio-button value="cod">Cash on Delivery</mat-radio-button>
+            <mat-radio-button value="online">Online Payment (Razorpay)</mat-radio-button>
+        </mat-radio-group>
+
+        <!-- Customer Information for Online Payment -->
+        <div *ngIf="paymentMethod === 'online'" class="customer-info-section">
+            <h3>Your Information</h3>
+            
+            <mat-form-field class="full-width">
+                <mat-label>Full Name</mat-label>
+                <input matInput [(ngModel)]="customerName" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Email Address</mat-label>
+                <input matInput type="email" [(ngModel)]="customerEmail" required>
+            </mat-form-field>
+
+            <div class="payment-info">
+                <p>
+                    <strong>Amount to pay:</strong>
+                    {{ cartTotal | currency:'INR':'symbol':'1.2-2' }}
+                </p>
+                <p class="payment-description">
+                    You will be redirected to Razorpay's secure payment gateway to complete your payment.
+                </p>
+            </div>
+        </div>
+
+        <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="placeOrder()" 
+            [disabled]="!isFormValid() || processingPayment"
+            [class.loading]="processingPayment">
+            <span *ngIf="!processingPayment">
+                {{ paymentMethod === 'cod' ? 'Place Order' : 'Proceed to Payment' }}
+            </span>
+            <span *ngIf="processingPayment">Processing...</span>
+        </button>
+    </div>
+</div>

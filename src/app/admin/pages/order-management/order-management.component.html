@@ -1,0 +1,68 @@
+<div class="order-management">
+    <div class="page-header">
+        <h1>Order Management</h1>
+        <p>View and manage customer orders</p>
+    </div>
+
+    <mat-card class="table-card">
+        <table mat-table [dataSource]="orders" class="orders-table">
+            <ng-container matColumnDef="orderNumber">
+                <th mat-header-cell *matHeaderCellDef>Order #</th>
+                <td mat-cell *matCellDef="let order">{{ order.orderNumber }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="customer">
+                <th mat-header-cell *matHeaderCellDef>Customer</th>
+                <td mat-cell *matCellDef="let order">{{ order.customerName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="deliveryAddress">
+                <th mat-header-cell *matHeaderCellDef>Delivery Address</th>
+                <td mat-cell *matCellDef="let order">{{ order.deliveryAddress }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="items">
+                <th mat-header-cell *matHeaderCellDef>Items</th>
+                <td mat-cell *matCellDef="let order" [matTooltip]="order.itemNames">
+                    {{ order.itemsCount }}
+                    <div class="item-names">{{ order.itemNames }}</div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef>Total</th>
+                <td mat-cell *matCellDef="let order">{{ order.total | currency:'INR':'symbol':'1.2-2' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let order">
+                    <mat-select [value]="order.status" (selectionChange)="updateOrderStatus(order, $event.value)"
+                        [ngClass]="getStatusClass(order.status)">
+                        <mat-option value="pending">Pending</mat-option>
+                        <mat-option value="processing">Processing</mat-option>
+                        <mat-option value="delivered">Delivered</mat-option>
+                        <mat-option value="cancelled">Cancelled</mat-option>
+                    </mat-select>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let order">{{ order.date | date:'short' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Payment Mode</th>
+                <td mat-cell *matCellDef="let order">
+                    <span class="payment-badge" [ngClass]="order.paymentMethod === 'online' ? 'online' : 'cod'">
+                        {{ order.paymentMethodDisplay }}
+                    </span>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</div>

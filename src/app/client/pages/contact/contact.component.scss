@@ -1,0 +1,113 @@
+@import '../../../../styles/variables';
+
+.contact-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px;
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 48px;
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 18px;
+            color: $text-secondary;
+        }
+    }
+
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+
+        .contact-form-card {
+            padding: 32px;
+
+            h2 {
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 24px;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                mat-form-field {
+                    width: 100%;
+                }
+
+                button {
+                    align-self: flex-start;
+                    padding: 12px 32px;
+
+                    mat-icon {
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+
+        .contact-info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .contact-info-card {
+                padding: 32px;
+
+                h2 {
+                    font-size: 24px;
+                    font-weight: 600;
+                    margin-bottom: 24px;
+                }
+
+                .info-item {
+                    display: flex;
+                    gap: 16px;
+                    margin-bottom: 24px;
+
+                    mat-icon {
+                        color: $primary-color;
+                        font-size: 28px;
+                        width: 28px;
+                        height: 28px;
+                    }
+
+                    div {
+                        strong {
+                            display: block;
+                            font-size: 16px;
+                            margin-bottom: 4px;
+                        }
+
+                        p {
+                            color: $text-secondary;
+                            margin: 0;
+                            line-height: 1.6;
+                        }
+                    }
+                }
+            }
+
+            .map-container {
+                border-radius: $radius-lg;
+                overflow: hidden;
+                box-shadow: $shadow-md;
+            }
+        }
+    }
+
+    @media (max-width: $breakpoint-md) {
+        .contact-container {
+            grid-template-columns: 1fr;
+        }
+    }
+}

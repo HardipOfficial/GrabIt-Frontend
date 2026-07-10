@@ -1,0 +1,244 @@
+@import './styles/variables';
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Inter', 'Roboto', sans-serif;
+    background: $bg-secondary;
+    color: $text-primary;
+}
+
+body {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+        color: $primary-dark;
+    }
+}
+
+/* Container Utilities */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Spacing Utilities */
+.mt-xs {
+    margin-top: $spacing-xs;
+}
+
+.mt-sm {
+    margin-top: $spacing-sm;
+}
+
+.mt-md {
+    margin-top: $spacing-md;
+}
+
+.mt-lg {
+    margin-top: $spacing-lg;
+}
+
+.mt-xl {
+    margin-top: $spacing-xl;
+}
+
+.mt-xxl {
+    margin-top: $spacing-xxl;
+}
+
+.mb-xs {
+    margin-bottom: $spacing-xs;
+}
+
+.mb-sm {
+    margin-bottom: $spacing-sm;
+}
+
+.mb-md {
+    margin-bottom: $spacing-md;
+}
+
+.mb-lg {
+    margin-bottom: $spacing-lg;
+}
+
+.mb-xl {
+    margin-bottom: $spacing-xl;
+}
+
+.mb-xxl {
+    margin-bottom: $spacing-xxl;
+}
+
+.pt-xs {
+    padding-top: $spacing-xs;
+}
+
+.pt-sm {
+    padding-top: $spacing-sm;
+}
+
+.pt-md {
+    padding-top: $spacing-md;
+}
+
+.pt-lg {
+    padding-top: $spacing-lg;
+}
+
+.pt-xl {
+    padding-top: $spacing-xl;
+}
+
+.pt-xxl {
+    padding-top: $spacing-xxl;
+}
+
+.pb-xs {
+    padding-bottom: $spacing-xs;
+}
+
+.pb-sm {
+    padding-bottom: $spacing-sm;
+}
+
+.pb-md {
+    padding-bottom: $spacing-md;
+}
+
+.pb-lg {
+    padding-bottom: $spacing-lg;
+}
+
+.pb-xl {
+    padding-bottom: $spacing-xl;
+}
+
+.pb-xxl {
+    padding-bottom: $spacing-xxl;
+}
+
+/* Text Utilities */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-primary {
+    color: $text-primary;
+}
+
+.text-secondary {
+    color: $text-secondary;
+}
+
+.text-success {
+    color: $success-color;
+}
+
+.text-error {
+    color: $error-color;
+}
+
+/* Grid Utilities */
+.grid {
+    display: grid;
+    gap: 24px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: $breakpoint-md) {
+
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Button Overrides */
+.mat-mdc-raised-button {
+    border-radius: $radius-md !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Card Overrides */
+.mat-mdc-card {
+    border-radius: $radius-lg !important;
+    box-shadow: $shadow-md !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: $bg-tertiary;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $text-disabled;
+    border-radius: 4px;
+
+    &:hover {
+        background: $text-secondary;
+    }
+}

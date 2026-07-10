@@ -1,0 +1,33 @@
+<div class="categories-page">
+    <div class="page-header">
+        <h1>Shop by Category</h1>
+        <p>Browse our wide range of product categories</p>
+    </div>
+
+    <div *ngIf="loading" class="grid grid-3">
+        <app-loading-skeleton type="product-card" [count]="9"></app-loading-skeleton>
+    </div>
+
+    <div *ngIf="!loading && categories.length > 0" class="categories-grid">
+        <mat-card *ngFor="let category of categories" class="category-card" (click)="navigateToProducts(category.id)">
+            <div class="category-image">
+                <img [src]="category.image" [alt]="category.name" />
+                <div class="overlay">
+                    <button mat-raised-button color="primary">
+                        View Products
+                        <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <mat-card-content>
+                <h2>{{ category.name }}</h2>
+                <p>{{ category.description }}</p>
+                <span class="product-count">{{ category.productCount || 0 }} Products</span>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <app-empty-state *ngIf="!loading && categories.length === 0" icon="category" title="No Categories Available"
+        message="Categories will appear here once they are added.">
+    </app-empty-state>
+</div>

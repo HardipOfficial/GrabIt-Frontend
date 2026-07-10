@@ -1,0 +1,30 @@
+<mat-card class="product-card">
+    <div class="product-image">
+        <img [src]="product.image" [alt]="product.name" />
+        <div class="stock-badge" [class.in-stock]="product.inStock" [class.out-stock]="!product.inStock">
+            {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+        </div>
+        <div *ngIf="product.featured" class="featured-badge">
+            <mat-icon>star</mat-icon>
+        </div>
+    </div>
+
+    <mat-card-content>
+        <h3 class="product-name" [routerLink]="['/product', product.id]">{{ product.name }}</h3>
+        <p class="product-description">{{ product.description | slice:0:60 }}{{ product.description.length > 60 ? '...'
+            : '' }}</p>
+
+        <div class="product-footer">
+            <div class="price-section">
+                <span class="price">₹{{ product.price }}</span>
+                <span class="unit" *ngIf="product.unit">/ {{ product.unit }}</span>
+            </div>
+
+            <button mat-raised-button color="primary" (click)="onAddToCart()" [disabled]="!product.inStock"
+                class="add-to-cart-btn">
+                <mat-icon>add_shopping_cart</mat-icon>
+                Add
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>

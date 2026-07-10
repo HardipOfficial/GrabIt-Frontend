@@ -1,0 +1,160 @@
+<div class="profile-page pt-lg pb-xl">
+  <div class="container">
+    <div class="profile-layout">
+      <!-- Sidebar -->
+      <aside class="profile-sidebar">
+        <div class="profile-card text-center pb-md">
+          <div class="avatar-section">
+            <div class="avatar-wrapper">
+              <img [src]="getProfileImageSource()" alt="Profile Picture" class="profile-avatar">
+              <label for="imgUpload" class="avatar-edit-btn" [class.loading]="isSubmitting">
+                <mat-icon>camera_alt</mat-icon>
+                <input type="file" id="imgUpload" class="hidden-input" (change)="onFileSelected($event)"
+                  accept="image/*" [disabled]="isSubmitting">
+              </label>
+            </div>
+            <h2 class="mt-md mb-xs">{{ userProfile?.name }}</h2>
+            <p class="text-secondary small">{{ userProfile?.email }}</p>
+            <span class="role-badge">{{ userProfile?.role }}</span>
+          </div>
+
+          <nav class="profile-nav mt-lg">
+            <button class="nav-btn" [class.active]="activeTab === 'info'" (click)="switchTab('info')">
+              <mat-icon>person</mat-icon>
+              <span>Personal Info</span>
+            </button>
+            <button class="nav-btn" [class.active]="activeTab === 'password'" (click)="switchTab('password')">
+              <mat-icon>lock</mat-icon>
+              <span>Security</span>
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="profile-content">
+        <div *ngIf="isLoading" class="loading-state">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p class="mt-md text-secondary">Loading profile...</p>
+        </div>
+
+        <div *ngIf="!isLoading" class="content-card card">
+          <!-- Messages -->
+          <div *ngIf="successMessage" class="alert-box success">
+            <span>{{ successMessage }}</span>
+            <button class="close-btn" (click)="successMessage = ''"><mat-icon>close</mat-icon></button>
+          </div>
+          <div *ngIf="errorMessage" class="alert-box error">
+            <span>{{ errorMessage }}</span>
+            <button class="close-btn" (click)="errorMessage = ''"><mat-icon>close</mat-icon></button>
+          </div>
+
+          <!-- Personal Information Tab -->
+          <div *ngIf="activeTab === 'info'" class="tab-pane">
+            <h3 class="tab-title mb-lg">Personal Information</h3>
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="form-grid">
+              <div class="form-group">
+                <label class="label">Full Name</label>
+                <input type="text" formControlName="name" class="input-field"
+                  [class.error]="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                <span class="error-text" *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                  Name is required
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Email Address</label>
+                <input type="email" [value]="userProfile?.email" class="input-field disabled" disabled
+                  title="Email cannot be changed">
+              </div>
+
+              <div class="form-group">
+                <label class="label">Phone Number</label>
+                <input type="text" formControlName="phoneNumber" class="input-field" placeholder="e.g. +91 9876543210">
+              </div>
+
+              <div class="form-group">
+                <label class="label">Date of Birth</label>
+                <input type="date" formControlName="dateOfBirth" class="input-field">
+              </div>
+
+              <div class="form-group">
+                <label class="label">Gender</label>
+                <select formControlName="gender" class="input-field select">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                  <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+              </div>
+
+              <div class="full-width mt-lg">
+                <h4 class="section-title mb-md">Address Details</h4>
+                <div formGroupName="address" class="address-grid">
+                  <div class="form-group full-width">
+                    <label class="label">Street Address</label>
+                    <input type="text" formControlName="street" class="input-field">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">City</label>
+                    <input type="text" formControlName="city" class="input-field">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">State</label>
+                    <input type="text" formControlName="state" class="input-field">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">Zip Code</label>
+                    <input type="text" formControlName="zipCode" class="input-field">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">Country</label>
+                    <input type="text" formControlName="country" class="input-field">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions mt-xl">
+                <button type="submit" class="submit-btn" [disabled]="profileForm.invalid || isSubmitting">
+                  <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner-btn"></mat-spinner>
+                  {{ isSubmitting ? 'Saving...' : 'Save Changes' }}
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Change Password Tab -->
+          <div *ngIf="activeTab === 'password'" class="tab-pane">
+            <h3 class="tab-title mb-lg">Security Settings</h3>
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
+              <div class="form-group">
+                <label class="label">Current Password</label>
+                <input type="password" formControlName="currentPassword" class="input-field">
+              </div>
+              <div class="form-group">
+                <label class="label">New Password</label>
+                <input type="password" formControlName="newPassword" class="input-field">
+              </div>
+              <div class="form-group">
+                <label class="label">Confirm New Password</label>
+                <input type="password" formControlName="confirmPassword" class="input-field"
+                  [class.error]="passwordForm.errors?.['mismatch'] && passwordForm.get('confirmPassword')?.touched">
+                <span class="error-text"
+                  *ngIf="passwordForm.errors?.['mismatch'] && passwordForm.get('confirmPassword')?.touched">
+                  Passwords do not match
+                </span>
+              </div>
+
+              <div class="form-actions mt-xl">
+                <button type="submit" class="submit-btn" [disabled]="passwordForm.invalid || isSubmitting">
+                  <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner-btn"></mat-spinner>
+                  {{ isSubmitting ? 'Updating...' : 'Update Password' }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
