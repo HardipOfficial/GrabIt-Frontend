@@ -62,7 +62,7 @@ npm start
 ng serve
 ```
 
-Navigate to `http://localhost:4200/`. The app will automatically reload if you change any source files.
+Navigate to [http://localhost:4200/](http://localhost:4200/). The app will automatically reload if you change any source files.
 
 ### Production Build
 ```bash

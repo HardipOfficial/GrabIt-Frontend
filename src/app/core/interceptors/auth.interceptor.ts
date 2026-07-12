@@ -17,10 +17,22 @@ export class AuthInterceptor implements HttpInterceptor {
         const token = localStorage.getItem('token');
         console.log('AuthInterceptor token:', token);
 
+        let apiRequest = request;
+
+        // If running in production (on Vercel) and the request is relative, prepend the Render backend URL
+        if (typeof window !== 'undefined' && 
+            window.location.hostname !== 'localhost' && 
+            window.location.hostname !== '127.0.0.1' && 
+            request.url.startsWith('/api')) {
+            apiRequest = request.clone({
+                url: `https://grabit-backend-evsp.onrender.com${request.url}`
+            });
+        }
+
         // Clone request and add authorization header if token exists
         if (token) {
             console.log('Setting auth header');
-            request = request.clone({
+            apiRequest = apiRequest.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token}`
                 }
@@ -28,7 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
 
         // Handle the request and catch errors
-        return next.handle(request).pipe(
+        return next.handle(apiRequest).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 401) {
                     // Unauthorized - fetch authService via injector to break circular dep
